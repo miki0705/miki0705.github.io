@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Bob</title>
+    <style>
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+        }
+        .container .calculator{
+            width: 300px;
+            height: 450px;
+            display: block;
+            border: 2px solid black;
+            background-color: #84e5e8;
+            border-radius: 10px;
+        }
+        .container .calculator .row{
+            /*background-color:aquamarine;*/
+            /*border: 0.01px solid black;*/
+            display: flex;
+            justify-content: space-around;
+
+            width: 100%;
+            height: 90px;
+        }
+        .container .calculator .row .viewPort{
+            border: 1px solid black;
+            width: 90%;
+            height: 60px;
+            margin-top: 14px ;
+            display: flex;
+            align-items:center;
+        }
+
+        .container .calculator .row input{
+            height: 50px;
+            width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="index.html">TEXT</a>
+    <a href="Bob.html">OBRAZKI</a>
+    <a href="Bob2.html">FORMY</a>
+    <a href="KalkulatorBob.html">KALKULATOR</a>
+    <br>
+    Mikołaj Rowiński
+
+    <div class="container">
+        <div class="calculator">
+    
+            <div class="row">
+                <div class="viewPort" id="viewPort"></div>
+            </div>
+            <div class="row">
+                <input type="button" value="1" onclick="print(this)">
+                <input type="button" value="2" onclick="print(this)">
+                <input type="button" value="3" onclick="print(this)">
+                <input type="button" value="/" onclick="print(this)">
+            </div>
+            <div class="row">
+                <input type="button" value="4" onclick="print(this)">
+                <input type="button" value="5" onclick="print(this)">
+                <input type="button" value="6" onclick="print(this)">
+                <input type="button" value="*" onclick="print(this)">
+            </div>
+            <div class="row">
+                <input type="button" value="7" onclick="print(this)">
+                <input type="button" value="8" onclick="print(this)">
+                <input type="button" value="9" onclick="print(this)">
+                <input type="button" value="-" onclick="print(this)">
+            </div>
+            <div class="row">
+                <input type="button" value="C" onclick="clear1()"">
+                <input type="button" value="0" onclick="print(this)">
+                <input type="button" value="=" onclick="calculate()">
+                <input type="button" value="+" onclick="print(this)">
+            </div>
+    
+        </div>
+    </div>
+<script>
+    let input1 = document.getElementById("viewPort");
+    const symbols = ['+', '-', '*', '/'];
+    const numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+
+
+    function print(button1) {
+        if(input1.innerHTML.length == 33)
+            return;
+        /*jesli ostatni symbol nie jest */
+        if(!(input1.innerHTML.length == 0 &&
+            button1.value == "-") &&
+            (symbols.includes(button1.value) && 
+            !numbers.includes(input1.innerHTML.slice(-1)))) return;
+
+        
+        
+        input1.innerHTML += button1.value;
+    }
+
+    function calculate(){
+        if(input1.innerHTML.length == 0) 
+            return;
+        const result1 = eval(input1.innerHTML);
+        if(result1 == Infinity || result1 == -Infinity || isNaN(result1)){
+            input1.innerHTML = "Nie można dzielić przez 0. <br>PRESS: C"
+            return
+        }
+        input1.innerHTML = input1.innerHTML.length;
+        
+    }
+
+    function clear1(){
+        input1.innerHTML = "";
+    }
+</script>
+</body>
+</html>
