@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
+    
     <meta charset="UTF-8">
-    <title>Bob3</title>
+    <title>Formy</title>
     <style>
         label{
             display: inline-block;
             width: 140px;
         }
+        form div div{
+            display: inline;
+            color:red;
+        }
         .plec{
             display: inline-block;
+            color:black;
         }
         .plec label{
             display: inline;
@@ -21,32 +27,37 @@
     <a href="Bob.html">OBRAZKI</a>
     <a href="Bob2.html">FORMY</a>
 	<a href="KalkulatorBob.html">KALKULATOR</a><br>
-    Mikołaj Rowiński<br>
+    Mikołaj Rowiński<br><br>
 
-    <form action="">
+    <form action="" onsubmit="return validation()">
         <div>
             <label for="">Imię: </label>
-            <input type="text">
+            <input type="text" id="imie" minlength="1" maxlength="21" required>
+            <div class="errors" id="imieError"></div>
         </div>
         <div>
             <label for="">Nazwisko: </label>
-            <input type="text">
+            <input type="text" id="nazwisko" minlength="1" maxlength="21" required>
+            <div class="errors" id="nazwiskoError"></div>
         </div>
         <div>
             <label for="">Miasto: </label>
-            <input type="text">
+            <input type="text" id="miasto" minlength="1" maxlength="10" required>
+            <div class="errors" id="miastoError"></div>
         </div>
         <div>
             <label for="">Numer Domu: </label>
-            <input type="text">
+            <input type="text" id="nrDomu" minlength="1" maxlength="3">
+            <div class="errors" id="nrDomuError"></div>
         </div>
         <div>
             <label for="">Numer Mieszkania: </label>
-            <input type="text">
+            <input type="text" id="nrMieszkania" minlength="1" maxlength="3">
+            <div class="errors" id="nrMieszkaniaError"></div>
         </div>
         <div>
             <label for="">Prawko: </label>
-            <input type="checkbox">
+            <input type="checkbox" id="prawko">
         </div>
         <div>
             <label for="">Płeć: </label>
@@ -58,28 +69,154 @@
             </div>
         </div>
         <div>
-            <label for="">Imię: </label>
-            <input type="text">
-        </div>
-        <div>
             <label for="">Numer Telefonu: </label>
-            <input type="tel">
+            <input type="tel" id="nrTele" maxlength="9" required>
+            <div class="errors" id="nrTeleError"></div>
         </div>
         <div>
             <label for="">Data Urodzenia: </label>
-            <input type="date">
+            <input type="date" id="date">
+            <div class="errors" id="dateError"></div>
         </div>
         <div>
             <label for="">PESEL: </label>
-            <input type="number">
+            <input type="number" id="pesel">
+            <div class="errors" id="peselError"></div>
         </div>
         <div>
             <label for="">Kod Pocztowy: </label>
-            <input type="text">
+            <input type="text" id="kodPocztowy">
+            <div class="errors" id="kodPocztowyError"></div>
         </div>
         <div>
-            <input type="submit" value="Wyślij">
+            <input type="submit" value="Wyślij" onclick="validation()">
         </div>    
     </form>
+
+    <script>
+        function validation(){
+            const smallLetters = "a-ząćęłńóśżź";
+            const capitalLetters = "A-ZĄĆĘŁŃÓŚŻŹ";
+            var koniec = true;
+
+            var imie = document.getElementById("imie");
+            var imieError = document.getElementById("imieError");
+            const imieReg = new RegExp(`^[${capitalLetters}]([${smallLetters}]+)?([- ]?[${capitalLetters}]([${smallLetters}]+)?)?$`);
+            if(!imieReg.test(imie.value)){
+                imie.style.color = "red";
+                imieError.innerHTML = "Imię powinno zaczynać się z wielkiej litery, możliwe wpisanie drugiego imienia po myślniku lub spacji."
+                koniec = false;
+            }else{
+                imie.style.color = "black";
+                imieError.innerHTML = "";
+            }
+
+            var nazwisko = document.getElementById("nazwisko");
+            var nazwiskoError = document.getElementById("nazwiskoError");
+            const nazwiskoReg = new RegExp(`^[${capitalLetters}]([${smallLetters}]+)?([-]?[${capitalLetters}]([${smallLetters}]+)?)?$`);
+            if(!nazwiskoReg.test(nazwisko.value)){
+                nazwisko.style.color = "red";
+                nazwiskoError.innerHTML = "Nazwisko powinno zaczynać się z wielkiej litery, możliwe wpisanie nazwiska dwuczłonowego po myślniku."
+                koniec = false;
+            }else{
+                nazwisko.style.color = "black";
+                nazwiskoError.innerHTML = "";
+            }
+
+            
+            var miasto = document.getElementById("miasto");
+            var miastoError = document.getElementById("miastoError");
+            const miastoReg = new RegExp(`^[${capitalLetters}]([${smallLetters}]+)?([-]?[${capitalLetters}]([${smallLetters}]+)?)?$`);
+            if(!miastoReg.test(miasto.value)){
+                miasto.style.color = "red";
+                miastoError.innerHTML = "Nazwa miasta powinna zaczynać się z wielkiej litery, możliwe wpisanie nazwy dwuczłonowej po myślniku."
+                koniec = false;
+            }else{
+                miasto.style.color = "black";
+                miastoError.innerHTML = "";
+            }
+
+            var nrDomu = document.getElementById("nrDomu");
+            var nrDomuError = document.getElementById("nrDomuError");
+            const nrDomuReg = new RegExp(`^[1-9][0-9]+([${smallLetters}]|[${capitalLetters}])?$`);
+            if(nrDomu.value != "" && !nrDomuReg.test(nrDomu.value)){
+                nrDomu.style.color = "red";
+                nrDomuError.innerHTML = "Numer domu nie powinien zaczynać się od zera, możliwa litera na końcu."
+                koniec = false;
+            }else{
+                nrDomu.style.color = "black";
+                nrDomuError.innerHTML = "";
+            }
+
+            var nrMieszkania = document.getElementById("nrMieszkania");
+            var nrMieszkaniaError = document.getElementById("nrMieszkaniaError");
+            const nrMieszkaniaReg = new RegExp(`^[1-9][0-9]+$`);
+            if(nrMieszkania.value != "" && !nrMieszkaniaReg.test(nrMieszkania.value)){
+                nrMieszkania.style.color = "red";
+                nrMieszkaniaError.innerHTML = "Numer mieszkania nie powinien zaczynać się od zera, możliwa litera na końcu."
+                koniec = false;
+            }else{
+                nrMieszkania.style.color = "black";
+                nrMieszkaniaError.innerHTML = "";
+            }
+
+            var nrTele = document.getElementById("nrTele");
+            var nrTeleError = document.getElementById("nrTeleError");
+            const nrTeleReg = new RegExp(`^[0-9]{9}$`);
+            if(!nrTeleReg.test(nrTele.value)){
+                nrTele.style.color = "red";
+                nrTeleError.innerHTML = "Niepoprawny format numeru telefonu."
+                koniec = false;
+            }else{
+                nrTele.style.color = "black";
+                nrTeleError.innerHTML = "";
+            }
+
+            var date = document.getElementById("date");
+            var wybranaData = new Date(date.value)
+            var dzisiaj = new Date();
+            var dateError = document.getElementById("dateError");
+            dzisiaj.setHours(0,0,0,0);
+            if(wybranaData > dzisiaj || !date.value){
+                date.style.color = "red";
+                dateError.innerHTML = "Podano niepoprawną date."
+                koniec = false;
+            }else{
+                date.style.color = "black";
+                dateError.innerHTML = "";
+            }
+
+            var pesel = document.getElementById("pesel");
+            var peselError = document.getElementById("peselError");
+            const peselReg = new RegExp(`^[0-9]{11}$`);
+            if(!peselReg.test(pesel.value)){
+                pesel.style.color = "red";
+                peselError.innerHTML = "Niepoprawny format numeru PESEL."
+                koniec = false;
+            }else{
+                pesel.style.color = "black";
+                peselError.innerHTML = "";
+            }
+
+            var kodPocztowy = document.getElementById("kodPocztowy");
+            var kodPocztowyError = document.getElementById("kodPocztowyError");
+            const kodPocztowyReg = new RegExp(`^[0-9]{2}[-][0-9]{3}$`);
+            if(!kodPocztowyReg.test(kodPocztowy.value)){
+                kodPocztowy.style.color = "red";
+                kodPocztowyError.innerHTML = "Niepoprawny format kodu  pocztowego, poprawny format to: XX-XXX , gdzie X to cyfra."
+                koniec = false;
+            }else{
+                kodPocztowy.style.color = "black";
+                kodPocztowyError.innerHTML = "";
+            }
+
+
+            return koniec;
+        }
+
+        
+
+
+    </script>
 </body>
 </html>		
