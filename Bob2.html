@@ -138,7 +138,7 @@
 
             var nrDomu = document.getElementById("nrDomu");
             var nrDomuError = document.getElementById("nrDomuError");
-            const nrDomuReg = new RegExp(`^[1-9][0-9]+([${smallLetters}]|[${capitalLetters}])?$`);
+            const nrDomuReg = new RegExp(`^[1-9]([0-9]+)?([${smallLetters}]|[${capitalLetters}])?$`);
             if(nrDomu.value != "" && !nrDomuReg.test(nrDomu.value)){
                 nrDomu.style.color = "red";
                 nrDomuError.innerHTML = "Numer domu nie powinien zaczynać się od zera, możliwa litera na końcu."
@@ -150,7 +150,7 @@
 
             var nrMieszkania = document.getElementById("nrMieszkania");
             var nrMieszkaniaError = document.getElementById("nrMieszkaniaError");
-            const nrMieszkaniaReg = new RegExp(`^[1-9][0-9]+$`);
+            const nrMieszkaniaReg = new RegExp(`^[1-9]([0-9]+)?$`);
             if(nrMieszkania.value != "" && !nrMieszkaniaReg.test(nrMieszkania.value)){
                 nrMieszkania.style.color = "red";
                 nrMieszkaniaError.innerHTML = "Numer mieszkania nie powinien zaczynać się od zera, możliwa litera na końcu."
